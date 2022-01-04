@@ -1,0 +1,40 @@
+service: qr-code-generator
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: us-west-2
+
+# functions
+functions:
+  qr-code:
+    handler: src/functions/qr-code.handler
+    events: # The events that trigger this function
+      - http: 
+          path: qr-code
+          method: get
+
+custom:
+  serverless-offline:
+    httpPort: 3012
+    stageVariables:
+      foo: "bar"
+
+# Serverless plugins
+plugins:
+  - serverless-plugin-typescript
+  - serverless-offline
+
+layers:
+  layer1:
+    path: nodejs # required, path to layer contents on disk
+
+# Resources your functions use
+resources:
+  Resources:
+    # SNS Topics
+    # SNSHelloEvent:
+    #   Type: AWS::SNS::Topic
+    #   Properties:
+    #     DisplayName: Hello Event Topic
+    #     TopicName: hello-event
