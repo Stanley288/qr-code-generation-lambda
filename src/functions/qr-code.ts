@@ -7,10 +7,9 @@ import QRCode from 'easyqrcodejs-nodejs'
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
-    const { queryStringParameters }: { queryStringParameters: APIGatewayProxyEventQueryStringParameters | null  } = event
+    const body = JSON.parse(event.body || '')
 
     const responseHeaders = {
-      'Access-Control-Allow-Origin': '*',
       'Content-Type': 'application/json',
     }
 
@@ -18,9 +17,9 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
     const { 
       url,
       title,
-      logo,
+      logo = undefined,
       color= "#000",
-    } = queryStringParameters
+    } = body
 
     const options = {
       text: url,
@@ -51,10 +50,9 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
   } catch (err) {
     return {
       statusCode: 500,
-      body: 'An error occured',
+      body: JSON.stringify(err),
       headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
       },
     }
   }

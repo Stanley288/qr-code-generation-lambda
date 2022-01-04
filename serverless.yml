@@ -12,7 +12,7 @@ functions:
     events: # The events that trigger this function
       - http: 
           path: qr-code
-          method: get
+          method: post
 
 custom:
   serverless-offline:
@@ -24,10 +24,6 @@ custom:
 plugins:
   - serverless-plugin-typescript
   - serverless-offline
-
-layers:
-  layer1:
-    path: nodejs # required, path to layer contents on disk
 
 # Resources your functions use
 resources:

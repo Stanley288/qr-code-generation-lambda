@@ -16,12 +16,12 @@ exports.handler = void 0;
 const easyqrcodejs_nodejs_1 = __importDefault(require("easyqrcodejs-nodejs"));
 const handler = (event) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { queryStringParameters } = event;
+        const body = JSON.parse(event.body || '');
         const responseHeaders = {
-            'Access-Control-Allow-Origin': '*',
             'Content-Type': 'application/json',
         };
-        const { url, title, logo, color = "#000", } = queryStringParameters;
+        const { url, title, logo = undefined, color = "#000", } = body;
+        console.log(body);
         const options = {
             text: url,
             title: title,
@@ -47,10 +47,9 @@ const handler = (event) => __awaiter(void 0, void 0, void 0, function* () {
     catch (err) {
         return {
             statusCode: 500,
-            body: 'An error occured',
+            body: JSON.stringify(err),
             headers: {
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
             },
         };
     }
