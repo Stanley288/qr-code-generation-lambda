@@ -26,7 +26,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
       title: title,
       titleTop: 0,
       logo,
-      quietZone: 50,
+      quietZone: 15,
       dotScale: 0.5,
       width: 256,
       height: 256,
